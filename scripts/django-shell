@@ -1,0 +1,17 @@
+#!/bin/bash
+
+BASEDIR=$(cd $(dirname $0) &>/dev/null; pwd -P)
+source "$BASEDIR/lib"
+
+username="$1"
+useremail="$2"
+password="$3"
+
+if [ ! -e "$RIETVELD_DATABASE_FILE" ]
+then
+    echo "Rietveld database at $RIETVELD_DATABASE_FILE does not exist"
+    exit 1
+fi
+
+cd $BASEDIR/../rietveld/examples/rietveld || exit 1
+python manage.py shell
