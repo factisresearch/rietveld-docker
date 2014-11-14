@@ -1,0 +1,3 @@
+#!/bin/bash
+
+dockercook cook -t docker.cpmed.de:5000/ --push -b cook rietveld.cook
