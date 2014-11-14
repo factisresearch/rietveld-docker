@@ -13,8 +13,24 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+def from_env(key, default):
+    key = "RIETVELD_" + key
+    try:
+        x = os.environ[key]
+        return x
+    except KeyError:
+        return default
+
+EMAIL_HOST = from_env("EMAIL_HOST", "localhost")
+EMAIL_PORT = from_env("EMAIL_PORT", 25)
+EMAIL_HOST_USER = from_env("EMAIL_HOST_USER", None)
+EMAIL_HOST_PASSWORD = from_env("EMAIL_HOST_PASSWORD", None)
+EMAIL_USE_TLS = from_env("EMAIL_USE_TLS", False)
+DEFAULT_FROM_EMAIL = from_env("DEFAULT_FROM_EMAIL", None)
+EMAIL_SUBJECT_PREFIX = from_env("DEFAULT_SUBJECT_PREFIX", None)
+
+DATABASE_NAME = from_env("DATABASE_FILE", 'dev.db')       # Or path to database file if using sqlite3.
 DATABASE_ENGINE = 'sqlite3'    # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'dev.db'       # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
