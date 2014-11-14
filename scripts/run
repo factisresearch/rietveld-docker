@@ -1,0 +1,14 @@
+#!/bin/bash
+
+BASEDIR=$(cd $(dirname $0) &>/dev/null; pwd -P)
+source "$BASEDIR/lib"
+
+if [ "$1" == "--help" ]
+then
+    echo "$0"
+    exit 1
+fi
+
+cd $BASEDIR/../rietveld/examples/rietveld || exit 1
+
+python manage.py runserver --verbosity=2 $RIETVELD_HOST:$RIETVELD_PORT

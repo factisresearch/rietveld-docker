@@ -1,0 +1,6 @@
+export RIETVELD_HOST=${RIETVELD_HOST-127.0.0.1}
+export RIETVELD_PORT=${RIETVELD_PORT-8000}
+export RIETVELD_DATABASE_FILE=${RIETVELD_DATABASE_FILE-/data/rietveld/rietveld.db}
+
+TOPDIR=$(cd $(dirname $0)/.. &>/dev/null; pwd -P)
+export PYTHONPATH=$TOPDIR/rietveld:$TOPDIR/rietveld/examples/rietveld

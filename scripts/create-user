@@ -1,0 +1,29 @@
+#!/bin/bash
+
+BASEDIR=$(cd $(dirname $0) &>/dev/null; pwd -P)
+source "$BASEDIR/lib"
+
+username="$1"
+useremail="$2"
+password="$3"
+
+function usage()
+{
+    echo "$0 USERNAME EMAIL PASSWORD"
+    exit 1
+}
+
+if [ -z "$username" -o -z "$useremail" -o -z "$password" -o "$1" == "help" ]
+then
+    usage
+fi
+
+if [ ! -e "$RIETVELD_DATABASE_FILE" ]
+then
+    echo "Rietveld database at $RIETVELD_DATABASE_FILE does not exist"
+    exit 1
+fi
+
+cd $BASEDIR/../rietveld/examples/rietveld || exit 1
+echo "from django.contrib.auth.models import User; User.objects.create_user('$username','$useremail','$password').save()" | \
+  python manage.py shell
