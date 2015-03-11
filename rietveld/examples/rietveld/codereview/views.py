@@ -619,6 +619,7 @@ def admin_required(func):
 def issue_required(func):
   """Decorator that processes the issue_id handler argument."""
 
+  @login_required
   def issue_wrapper(request, issue_id, *args, **kwds):
     issue = models.Issue.get_by_id(int(issue_id))
     if issue is None:
@@ -864,7 +865,7 @@ def _paginate_issues(page_url,
     params.update(extra_template_params)
   return respond(request, template, params)
 
-
+@login_required
 def all(request):
   """/all - Show a list of up to DEFAULT_LIMIT recent issues."""
   closed = request.GET.get('closed') or ''
